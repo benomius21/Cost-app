@@ -1,0 +1,37 @@
+<form [formGroup]='submitForm' (ngSubmit)="onUpdate()">
+    <div class="form-row align-items-center">
+        <div class="col-auto">
+            <input type="text" class="form-control mb-2 pozadina" formControlName='title' placeholder="Name of your plan">
+        </div>
+        <div class="col-auto">
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">KM</div>
+                </div>
+                <input type="number" class="form-control pozadina" formControlName='salary' placeholder="Value of your salary">
+            </div>
+        </div>
+        <button  *ngIf='token' type="button" class="btn btn-primary" (click)='addForm()'>Add cost</button>
+    </div>
+    <hr>
+    <div formArrayName='nameAdd'>
+        <div *ngFor="let arrForm of getControlsOfName(); let i = index" class="form-row align-items-center"
+            [formGroupName]='i'>
+            <div class="col-auto">
+                <input type="text" class="form-control mb-2" formControlName='name' placeholder="Name of cost">
+            </div>
+            <div class="col-auto">
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">KM</div>
+                    </div>
+                    <input type="number" class="form-control" formControlName='cost' placeholder="Value of cost">
+                </div>
+            </div>
+            <button  *ngIf='token' class='btn btn-danger' (click)='deleteForm(i)'>Delete</button>
+        </div>
+    </div>
+    <h4>Ukupan trosak: {{zbirTroskova}}</h4>
+    <h4>Ostatak: {{razlika}}</h4>
+    <button *ngIf='token' class="btn btn-primary" type="submit">Update</button>
+</form>

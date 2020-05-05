@@ -1,0 +1,38 @@
+<form [formGroup]='submitForm' (ngSubmit)="onSubmit()">
+    <div class='container'>
+    <div class="form-row align-items-center">    
+        <div class="col-auto">
+            <input type="text" class="form-control mb-2 pozadina" formControlName='title' placeholder="Name of your plan">
+        </div>
+        <div class="col-auto">
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text">KM</div>
+                </div>
+                <input type="number" class="form-control pozadina" formControlName='salary' placeholder="Value of your salary">
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary" (click)='addForm()'>Add cost</button>
+    </div>
+    <div formArrayName='nameAdd'>
+        <div *ngFor="let arrForm of getControlsOfName(); let i = index" class="form-row align-items-center"
+            [formGroupName]='i'>
+            <div class="col-auto">
+                <input type="text" class="form-control mb-2" formControlName='name' placeholder="Name of cost">
+            </div>
+            <div class="col-auto">
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">KM</div>
+                    </div>
+                    <input type="number" class="form-control" formControlName='cost' placeholder="Value of cost">
+                </div>
+            </div>
+            <button class='btn btn-danger' (click)='deleteForm(i)'>Delete</button>
+        </div>
+    </div>
+    <h4>Ukupan trosak: {{sum}}</h4>
+    <h4>Ostatak: {{ostatak}}</h4>
+    <button class="btn btn-primary" [disabled]="!submitForm.valid" type="submit">Save</button>
+</div>
+</form>

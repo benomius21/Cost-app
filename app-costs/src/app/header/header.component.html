@@ -1,0 +1,7 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a *ngIf = 'token' class="navbar-brand" routerLink='/new' >New</a>
+    <a class="navbar-brand" routerLink='/items' >Items</a>
+    <a *ngIf = '!token' class="navbar-brand" routerLink='/login' >login</a>
+    <a *ngIf = '!token' class="navbar-brand" routerLink='/signup' >Sign-Up</a>
+    <button *ngIf = 'token' class='btnNav' (click)='logout()' >Log Out</button>
+  </nav>
