@@ -14,18 +14,21 @@ export class ItemComponent implements OnInit, OnDestroy {
   plan: Plan[] = [];
   itemDeleted = false;
   obvUnsub: Subscription;
-  id = new Subject<string>();
-
+  isToken = false;
+  isTokenUnsub: Subscription;
   constructor
-  (private servis: ServisService, 
-    private authServis: AuthService, 
-    private router: Router,
-    private route: ActivatedRoute) { }
+    (private servis: ServisService,
+      private authServis: AuthService,
+      private router: Router,
+      private route: ActivatedRoute, ) { }
 
   ngOnInit(): void {
     this.servis.getAllPlans();
     this.obvUnsub = this.servis.getPlanObv().subscribe((plans) => {
       this.plan = plans;
+    });
+   this.isTokenUnsub = this.authServis.isToken.subscribe(resp => {
+        this.isToken = resp;
     });
 
   }
@@ -33,7 +36,7 @@ export class ItemComponent implements OnInit, OnDestroy {
   delete(id: string) {
     this.servis.deletePlan(id);
     this.servis.getAllPlans();
-   
+
 
   }
 
