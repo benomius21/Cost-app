@@ -15,8 +15,6 @@ export class AuthService {
         const acc: Baselog = { email: email, password: password };
         this.http.post<{ error: string, message: string }>('http://localhost:3000/signup', acc)
             .subscribe(resp => {
-                console.log(resp.error);
-                console.log(resp.message);
             })
     }
 
@@ -43,14 +41,11 @@ export class AuthService {
         const localObj = this.getTokenLocal();
       
         if (!localObj) {
-            console.log('mrššššššš');
             return;
         }
-        console.log('radiiiiii');
         const now = new Date();
         const future = localObj.expires.getTime() - now.getTime();
         if (future > 0) {
-            console.log(future + ' future');
             this.token = localObj.token;
             this.isToken.next(true);
             setTimeout(() => {
@@ -68,8 +63,7 @@ export class AuthService {
     saveTokenLocal(token: string, expiresIn: Date) {
         localStorage.setItem('token', token);
         localStorage.setItem('expires', expiresIn.toISOString());
-        console.log(expiresIn.toISOString());
-        console.log(expiresIn);
+        
     }
     removeTokenLocal() {
         localStorage.removeItem('token');
